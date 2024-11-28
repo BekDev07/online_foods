@@ -1,10 +1,11 @@
+require('express-async-errors');
 import dotenv from "dotenv";
 dotenv.config();
 import express, { Express } from "express";
 import Database from "./services/Database";
 import dbConnect from "./services/ExpressApp";
 
-const port = process.env.PORT || 3007;
+const port = process.env.PORT || 3077;
 
 const StartServer = async () => {
   try {

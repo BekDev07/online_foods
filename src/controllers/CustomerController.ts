@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express"
 import { CreateCustomerInput, EditCustomerProfileInput, UserLoginInput } from "../dto/Customer.dto"
 import { validate } from "class-validator"
 import { Customer } from "../models/Customer"
-import { GeneratePassword, GenerateSalt, GenerateSignature, ValidatePassword } from "../utility"
+import { GeneratePassword, GenerateSalt, GenerateSignature, ValidatePassword } from "../utility/passwordUtility"
 import { GenerateOtp, onRequestOTP } from "../utility/NotificationUtility"
 
 export const CustomerSignUp = async (req: Request, res: Response, next: NextFunction) => {
