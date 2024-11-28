@@ -30,9 +30,13 @@ export class EditCustomerProfileInput {
   address: string;
 }
 
-
 export interface CustomerPayload {
   _id: string,
   email: string,
   verified: boolean
+}
+
+export class OrderInputs {
+  _id: string;
+  unit: number;
 }

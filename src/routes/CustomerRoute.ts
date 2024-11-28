@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { CustomerSignUp, CustomerLogin, CustomerVerify, RequestOtp, GetCustomerProfile, EditCustomerProfile } from '../controllers/CustomerController';
+import { CustomerSignUp, CustomerLogin, CustomerVerify, RequestOtp, GetCustomerProfile, EditCustomerProfile, CreateOrder, GetOrders, GetOrderById } from '../controllers/CustomerController';
 // import { AddToCart, CreateOrder, CreatePayment, CustomerLogin, CustomerSignUp, CustomerVerify, DeleteCart, EditCustomerProfile, GetCart, GetCustomerProfile, GetOrderById, GetOrders, RequestOtp, VerifyOffer } from '../controllers';
 // import { Authenticate } from '../middleware';
 // import { Offer } from '../models/Offer';
@@ -40,9 +40,9 @@ router.patch('/profile', EditCustomerProfile)
 // router.post('/create-payment', CreatePayment);
 
 
-// //Order
-// router.post('/create-order', CreateOrder);
-// router.get('/orders', GetOrders);
-// router.get('/order/:id', GetOrderById)
+//Order
+router.post('/create-order', CreateOrder);
+router.get('/orders', GetOrders);
+router.get('/order/:id', GetOrderById)
 
 export { router as CustomerRoute }
