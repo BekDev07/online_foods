@@ -34,11 +34,12 @@ export const ValidateSignature = (req: Request) => {
         signature.split(" ")[1],
         APP_SECRET
       ) as AuthPayload;
+      console.log(payload);
 
       req.user = payload;
       return true;
     } catch (error) {
-      console.log(error);
+      console.log("qanday errorligi:", error);
     }
   }
 

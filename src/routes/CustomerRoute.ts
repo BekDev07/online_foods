@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { CustomerSignUp, CustomerLogin, CustomerVerify, RequestOtp, GetCustomerProfile, EditCustomerProfile, CreateOrder, GetOrders, GetOrderById } from '../controllers/CustomerController';
+import { CustomerSignUp, CustomerLogin, CustomerVerify, RequestOtp, GetCustomerProfile, EditCustomerProfile, CreateOrder, GetOrders, GetOrderById, AddToCart, GetCart, DeleteCart } from '../controllers/CustomerController';
 // import { AddToCart, CreateOrder, CreatePayment, CustomerLogin, CustomerSignUp, CustomerVerify, DeleteCart, EditCustomerProfile, GetCart, GetCustomerProfile, GetOrderById, GetOrders, RequestOtp, VerifyOffer } from '../controllers';
-// import { Authenticate } from '../middleware';
+import { Authenticate } from '../middlewares';
 // import { Offer } from '../models/Offer';
 
 const router = express.Router();
@@ -13,7 +13,7 @@ router.post('/signup', CustomerSignUp)
 router.post('/login', CustomerLogin)
 
 /* ------------------- Authentication --------------------- */
-// router.use(Authenticate);
+router.use(Authenticate);
 
 /* ------------------- Verify Customer Account --------------------- */
 router.patch('/verify', CustomerVerify)
@@ -26,10 +26,10 @@ router.get('/otp', RequestOtp)
 router.get('/profile', GetCustomerProfile)
 router.patch('/profile', EditCustomerProfile)
 
-// //Cart
-// router.post('/cart', AddToCart)
-// router.get('/cart', GetCart)
-// router.delete('/cart', DeleteCart)
+//Cart
+router.post('/cart', AddToCart)
+router.get('/cart', GetCart)
+router.delete('/cart', DeleteCart)
 
 
 // //Apply Offers

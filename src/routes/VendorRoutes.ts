@@ -1,8 +1,11 @@
 import express, { Request, Response, NextFunction } from "express";
 import {
   AddFood,
+  GetCurrentOrders,
   GetFoods,
+  GetOrderDetails,
   GetVendorProfile,
+  ProcessOrder,
   UpdateProfile,
   UpdateProfileService,
   UpdateVendorCoverImage,
@@ -42,8 +45,8 @@ router.patch("/service", UpdateProfileService);
 router.post("/food", images, AddFood);
 router.get("/foods", GetFoods);
 
-router.get("/", (req: Request, res: Response) => {
-  res.json({ message: "Hello, world from Vendor!" });
-});
+router.get('/orders', GetCurrentOrders);
+router.put('/order/:id/process', ProcessOrder);
+router.get('/order/:id', GetOrderDetails)
 
 export { router as VendorRoutes };
