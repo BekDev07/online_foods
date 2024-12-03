@@ -396,7 +396,7 @@ export const CreateOrder = async (
     foods.map((food) => {
       cart.map(({ _id, unit }) => {
         if (food._id == _id) {
-          // vendorId = food.vendorId;
+          vendorId = food.vendorId;
           netAmount += food.price * unit;
           cartItems.push({ food, unit });
         }
@@ -414,9 +414,11 @@ export const CreateOrder = async (
         paidThrough: "COD",
         paymentResponse: "",
         orderStatus: "Waiting",
-        // remarks: '',
-        // deliveryId: '',
-        // readyTime: 45
+        remarks: '',
+        deliveryId: '',
+        appliedOffer: false,
+        offerId: null,
+        readyTime: 45
       });
 
       if (currentOrder) {
@@ -426,8 +428,8 @@ export const CreateOrder = async (
         return;
       }
 
-      //     profile.cart = [] as any;
-      //     profile.orders.push(currentOrder);
+      profile.cart = [] as any;
+      profile.orders.push(currentOrder);
 
       //     currentTransaction.vendorId = vendorId;
       //     currentTransaction.orderId = orderId;
