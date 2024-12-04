@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express-serve-static-core";
-import { Vendor } from "../models";
+import { Offer, Vendor } from "../models";
 import { FoodDoc } from "../models/Food";
 
 export const GetFoodAvailability = async (req: Request, res: Response, next: NextFunction) => {
@@ -82,5 +82,12 @@ export const RestaurantById = async (req: Request, res: Response, next: NextFunc
 }
 
 export const GetAvailableOffers = async (req: Request, res: Response, next: NextFunction) => {
+  const pincode = req.params.pincode;
+  const offers = await Offer.find({ pincode, isActive: true })
 
+  if (offers) {
+    res.status(200).json(offers)
+    return;
+  }
+  res.status(400).json({ message: "Offers Not Found" })
 }

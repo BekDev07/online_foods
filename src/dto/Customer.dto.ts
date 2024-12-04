@@ -30,13 +30,20 @@ export class EditCustomerProfileInput {
   address: string;
 }
 
+export class CartItem {
+  _id: string;
+  unit: number;
+}
+
+export class OrderInputs {
+  txnId: string;
+  amount: string;
+  items: [CartItem]
+}
+
 export interface CustomerPayload {
   _id: string,
   email: string,
   verified: boolean
 }
 
-export class OrderInputs {
-  _id: string;
-  unit: number;
-}

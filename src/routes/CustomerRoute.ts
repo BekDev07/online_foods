@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { CustomerSignUp, CustomerLogin, CustomerVerify, RequestOtp, GetCustomerProfile, EditCustomerProfile, CreateOrder, GetOrders, GetOrderById, AddToCart, GetCart, DeleteCart } from '../controllers/CustomerController';
+import { CustomerSignUp, CustomerLogin, CustomerVerify, RequestOtp, GetCustomerProfile, EditCustomerProfile, CreateOrder, GetOrders, GetOrderById, AddToCart, GetCart, DeleteCart, VerifyOffer, CreatePayment } from '../controllers/CustomerController';
 // import { AddToCart, CreateOrder, CreatePayment, CustomerLogin, CustomerSignUp, CustomerVerify, DeleteCart, EditCustomerProfile, GetCart, GetCustomerProfile, GetOrderById, GetOrders, RequestOtp, VerifyOffer } from '../controllers';
 import { Authenticate } from '../middlewares';
 // import { Offer } from '../models/Offer';
@@ -32,12 +32,12 @@ router.get('/cart', GetCart)
 router.delete('/cart', DeleteCart)
 
 
-// //Apply Offers
-// router.get('/offer/verify/:id', VerifyOffer);
+//Apply Offers
+router.get('/offer/verify/:id', VerifyOffer);
 
 
-// //Payment
-// router.post('/create-payment', CreatePayment);
+//Payment
+router.post('/create-payment', CreatePayment);
 
 
 //Order

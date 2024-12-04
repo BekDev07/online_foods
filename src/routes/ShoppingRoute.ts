@@ -18,7 +18,6 @@ router.get('/search/:pincode', SearchFoods)
 /* ------------------- Search Offers --------------------- */
 router.get('/offers/:pincode', GetAvailableOffers)
 
-
 /* ------------------- Find Restaurant by ID --------------------- */
 router.get('/restaurant/:id', RestaurantById)
 
