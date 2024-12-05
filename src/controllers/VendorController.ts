@@ -90,17 +90,21 @@ export const UpdateProfile = async (
   res.status(401).json({ message: "Vendor not Found" });
 };
 
-export const UpdateProfileService = async (
+export const UpdateVendorService = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const user = req.user;
-
+  const { lat, lng } = req.body;
   if (user) {
     const existingVendor = await FindVendor(user._id);
     if (existingVendor) {
       existingVendor.serviceAvailable = !existingVendor.serviceAvailable;
+      if (lat && lng) {
+        existingVendor.lat = lat;
+        existingVendor.lng = lng;
+      }
       const savedResult = await existingVendor.save();
       res.json(savedResult);
       return;
@@ -147,6 +151,7 @@ export const UpdateVendorCoverImage = async (
 
   res.status(401).json({ message: "Vendor not Found" });
 };
+
 export const AddFood = async (
   req: Request,
   res: Response,

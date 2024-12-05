@@ -10,8 +10,8 @@ import {
   GetVendorProfile,
   ProcessOrder,
   UpdateProfile,
-  UpdateProfileService,
   UpdateVendorCoverImage,
+  UpdateVendorService,
   VendorLogin,
 } from "../controllers";
 import { Authenticate } from "../middlewares";
@@ -43,7 +43,7 @@ router.use(Authenticate);
 router.get("/profile", GetVendorProfile);
 router.patch("/coverImage", images, UpdateVendorCoverImage);
 router.patch("/profile", UpdateProfile);
-router.patch("/service", UpdateProfileService);
+router.patch("/service", UpdateVendorService);
 
 router.post("/food", images, AddFood);
 router.get("/foods", GetFoods);
