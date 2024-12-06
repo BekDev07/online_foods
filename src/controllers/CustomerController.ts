@@ -19,6 +19,7 @@ import { GenerateOtp, onRequestOTP } from "../utility/NotificationUtility";
 import { Food } from "../models/Food";
 import { Order } from "../models/Order";
 import { Offer, Transaction, Vendor } from "../models";
+import { DeliveryUser } from "../models/DeliveryUser";
 
 export const CustomerSignUp = async (
   req: Request,

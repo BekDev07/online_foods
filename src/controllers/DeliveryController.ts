@@ -22,7 +22,8 @@ export const DeliverySignUp = async (req: Request, res: Response, next: NextFunc
   const validationError = await validate(deliveryUserInputs, { validationError: { target: true } })
 
   if (validationError.length > 0) {
-    return res.status(400).json(validationError);
+    res.status(400).json(validationError);
+    return
   }
 
   const { email, phone, password, address, firstName, lastName, pincode } = deliveryUserInputs;
@@ -33,7 +34,8 @@ export const DeliverySignUp = async (req: Request, res: Response, next: NextFunc
   const existingDeliveryUser = await DeliveryUser.findOne({ email: email });
 
   if (existingDeliveryUser !== null) {
-    return res.status(400).json({ message: 'A Delivery User exist with the provided email ID!' });
+    res.status(400).json({ message: 'A Delivery User exist with the provided email ID!' });
+    return
   }
 
   const result = await DeliveryUser.create({
@@ -54,17 +56,19 @@ export const DeliverySignUp = async (req: Request, res: Response, next: NextFunc
   if (result) {
 
     //Generate the Signature
-    const signature = await GenerateSignature({
-      _id: result._id,
+    const signature = GenerateSignature({
+      _id: result._id as string,
       email: result.email,
       verified: result.verified
     })
     // Send the result
-    return res.status(201).json({ signature, verified: result.verified, email: result.email })
+    res.status(201).json({ signature, verified: result.verified, email: result.email })
+    return
 
   }
 
-  return res.status(400).json({ msg: 'Error while creating Delivery user' });
+  res.status(400).json({ msg: 'Error while creating Delivery user' });
+  return
 
 
 }
@@ -77,7 +81,8 @@ export const DeliveryLogin = async (req: Request, res: Response, next: NextFunct
   const validationError = await validate(loginInputs, { validationError: { target: true } })
 
   if (validationError.length > 0) {
-    return res.status(400).json(validationError);
+    res.status(400).json(validationError);
+    return
   }
 
   const { email, password } = loginInputs;
@@ -89,20 +94,23 @@ export const DeliveryLogin = async (req: Request, res: Response, next: NextFunct
     if (validation) {
 
       const signature = GenerateSignature({
-        _id: deliveryUser._id,
+        _id: deliveryUser._id as string,
         email: deliveryUser.email,
         verified: deliveryUser.verified
       })
 
-      return res.status(200).json({
+      res.status(200).json({
+
         signature,
         email: deliveryUser.email,
         verified: deliveryUser.verified
       })
+      return
     }
   }
 
-  return res.json({ msg: 'Error Login' });
+  res.json({ msg: 'Error Login' });
+  return
 
 }
 
@@ -116,11 +124,13 @@ export const GetDeliveryProfile = async (req: Request, res: Response, next: Next
 
     if (profile) {
 
-      return res.status(201).json(profile);
+      res.status(201).json(profile);
+      return
     }
 
   }
-  return res.status(400).json({ msg: 'Error while Fetching Profile' });
+  res.status(400).json({ msg: 'Error while Fetching Profile' });
+  return
 
 }
 
@@ -129,15 +139,16 @@ export const EditDeliveryProfile = async (req: Request, res: Response, next: Nex
 
   const deliveryUser = req.user;
 
-  const customerInputs = plainToClass(EditCustomerProfileInput, req.body);
+  const profileInputs = plainToClass(EditCustomerProfileInput, req.body);
 
-  const validationError = await validate(customerInputs, { validationError: { target: true } })
+  const profileErrors = await validate(profileInputs, { validationError: { target: true } })
 
-  if (validationError.length > 0) {
-    return res.status(400).json(validationError);
+  if (profileErrors.length > 0) {
+    res.status(400).json(profileErrors);
+    return
   }
 
-  const { firstName, lastName, address } = customerInputs;
+  const { firstName, lastName, address } = profileInputs;
 
   if (deliveryUser) {
 
@@ -149,16 +160,17 @@ export const EditDeliveryProfile = async (req: Request, res: Response, next: Nex
       profile.address = address;
       const result = await profile.save()
 
-      return res.status(201).json(result);
+      res.status(201).json(result);
+      return
     }
 
   }
-  return res.status(400).json({ msg: 'Error while Updating Profile' });
+  res.status(400).json({ msg: 'Error while Updating Profile' });
+  return
 
 }
 
 /* ------------------- Delivery Notification --------------------- */
-
 
 export const UpdateDeliveryUserStatus = async (req: Request, res: Response, next: NextFunction) => {
 
@@ -181,10 +193,12 @@ export const UpdateDeliveryUserStatus = async (req: Request, res: Response, next
 
       const result = await profile.save();
 
-      return res.status(201).json(result);
+      res.status(201).json(result);
+      return
     }
 
   }
-  return res.status(400).json({ msg: 'Error while Updating Profile' });
+  res.status(400).json({ msg: 'Error while Updating Profile' });
+  return
 
 }

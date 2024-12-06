@@ -1,5 +1,5 @@
-import express, { Request, Response, NextFunction } from "express";
-import { CreateVendor, GetTransactions, GetVendorByID, GetVendors } from "../controllers";
+import express from "express";
+import { CreateVendor, GetDeliveryUsers, GetTransactions, GetVendorByID, GetVendors, VerifyDeliveryUser } from "../controllers";
 
 const router = express.Router();
 
@@ -9,5 +9,8 @@ router.get("/vendors/:id", GetVendorByID);
 
 router.get("/transactions", GetTransactions);
 router.get("/transaction/:id", GetTransactions);
+
+router.put("/delivery/verify", VerifyDeliveryUser)
+router.get('/delivery/users', GetDeliveryUsers);
 
 export { router as AdminRoutes };
